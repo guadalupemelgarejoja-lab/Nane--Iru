@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>medicamentos</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- style de css de la pagina -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/aos.css" rel="stylesheet">
+  <link href="css/glightbox.min.css" rel="stylesheet">
+  <link href="css/swiper-bundle.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+
+  <style>
+    /* Siempre oculto inicialmente */
+    .producto-detalle {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    /* Hover en PC */
+    .portfolio-content:hover .producto-detalle {
+      opacity: 1;
+      max-height: 300px;
+    }
+
+    /* Móviles — cuando está activo por touch */
+    .portfolio-content.activo .producto-detalle {
+      opacity: 1;
+      max-height: 300px;
+    }
+  </style>
+
+</head>
+<!-- MODAL DEL CARRITO (TU MODAL ORIGINAL, NO TOCADO) -->
+<div id="modal-carrito" class="modal-carrito">
+  <div class="modal-contenido">
+    <img id="modal-imagen" src="" alt="">
+    <h3 id="modal-nombre"></h3>
+    <p id="modal-precio"></p>
+
+    <div class="modal-botones">
+      <button id="btn-seguir" class="btn-seguir">Seguir comprando</button>
+      <button id="btn-carrito" class="btn-carrito">Ir al carrito</button>
+    </div>
+  </div>
+</div>
+
+<body class="index-page">
+  <!-- Encabezado de la pagina -->
+  <header id="header" class="header fixed-top">
+
+    <div class="topbar d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <div class="contact-info d-flex align-items-center">
+          <i class="bi bi-envelope d-flex align-items-center"><a
+                                    href="mailto:agr.naneiru@hotmail.com">Agr.naneiru@hotmail.com</a></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4"><span>0976911112</span></i>
+        </div>
+        <div class="social-links d-none d-md-flex align-items-center">
+          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/agroveterinaria_naneiru?igsh=eHpzMmJvcm96MHRw" class="instagram"><i
+              class="bi bi-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="branding d-flex align-items-cente">
+
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <h1 class="sitename">Ñane Iru</h1>
+          <span>.</span>
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.html" class="active">Inicio<br></a></li>
+              <li class="dropdown"><a href="#"><span>Acerca de</span> <i
+                  class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="Nosotros.html">Nosotros</a></li>
+                <li><a href="Preguntas.html">Preguntas</a></li>
+                <li><a href="galeria.html">Galeria</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a href="#"><span>Productos</span> <i
+                  class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="alimentos.html">Alimentos Balanceados</a></li>
+                <li><a href="medicamentos.html">Medicamentos Veterinarios</a></li>
+                <li><a href="insumos.html">Insumos Agropecuarios</a></li>
+                <li><a href="accesorios.html">Acesorios para mascotas</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a href="#"><span>Servicios</span> <i
+                  class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="veterinarios.html">Veterinarios</a></li>
+                <li><a href="Agroservicios.html">Agroservicios</a></li>
+                <li><a href="emergencias.html">Emergencias Veterinarias</a></li>
+              </ul>
+            </li>
+            <li><a href="contacto.html">Contacto</a></li>
+
+            <!-- Carrito -->
+            <li>
+              <a href="#" id="open-cart">
+                <i class="bi bi-cart3" style="font-size: 22px; margin-left: 10px;"></i>
+                <span id="cart-count" style="
+                   background:red;
+                   color:white;
+                   padding:2px 6px;
+                   border-radius:50%;
+                   font-size:12px;
+                   margin-left:4px;">0</span>
+              </a>
+            </li>
+
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Medicamentos</h2>
+        <p>En esta seccón encontraras los medicamentos de nuestra agroveterinaria</p>
+      </div>
+
+      <div class="container">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">General</li>
+            <li data-filter=".filter-app">Antiinflamatorios</li>
+            <li data-filter=".filter-product">Antiparasitarios</li>
+            <li data-filter=".filter-branding">Vacunas</li>
+            <li data-filter=".filter-books">Vitaminas</li>
+            <!--li data-filter=".filter-baaks">Otros...</li-->
+          </ul>
+
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+            <!-- sesion antiinflamatorio -->
+            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-app">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiinflamatorio/Antiinflamatorio-artrin.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiinflamatorio/Antiinflamatorio-artrin.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt=""> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Artrin</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Es un condroprotector y regenerador del cartílago
+                      articular para perros (y gatos), que ayuda a disminuir la inflamación y el dolor asociados a
+                      problemas articulares. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 90.000 </h5>
+                  </div> 
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Artrin" data-price="90000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+            <!-- sesion antiparasitario -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-product">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiparasitario/antiparasitario-afoxopet tabletas.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiparasitario/antiparasitario-afoxopet tabletas.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt=""> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">afoxopet tabletas</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;">AFOXOPET son tabletas masticables para perros, un antiparasitario oral 
+                      que usa afoxolaner para controlar pulgas y garrapatas con una protección mensual.</p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 25.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Afoxopet tabletas" data-price="25000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vacuna -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-branding">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vacuna/Vacuna-cdv ac clostrimax.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vacuna/Vacuna-cdv ac clostrimax.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt=""> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">cdv ac clostrimax</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;">La vacuna prepara las defensas del animal (sistema inmunológico)
+                       para combatir las toxinas bacterianas, dándole protección o inmunidad antes de que se contagie. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 80.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="cdv ac clostrimax" data-price="80000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/Vitamina-Compplet Mix Pet.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/Vitamina-Compplet Mix Pet.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Compplet Mix Pet</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> El Organnact Compplet Mix Pet A-Z es un suplemento nutricional completo diseñado para perros y gatos de todas las edades. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 65.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Compplet Mix Pet" data-price="65000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiinflamatorio -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-app">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiinflamatorio/Antiinflamatorio-meloxivet.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiinflamatorio/Antiinflamatorio-meloxivet.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Meloxivet</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Se utiliza principalmente para aliviar el dolor y la inflamación asociados con trastornos
+                       musculoesqueléticos como la osteoartritis y para el manejo del dolor postquirúrgico en perros y gatos. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 89.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                  data-product="Meloxivet" data-price="89000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiparasitario -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-product">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiparasitario/antiparasitario-Hectopar spot.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiparasitario/antiparasitario-Hectopar spot.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Hectopar</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Este producto es para la prevención y el tratamiento de ectoparásitos como pulgas,
+                       garrapatas, moscas, mosquitos y piojos. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 19.500 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Hectopar" data-price="19500"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vacuna -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-branding">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vacuna/Vacuna-quantum da2ppvl.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vacuna/Vacuna-quantum da2ppvl.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Quantum da2ppvl</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> para la inmunización activa de perros sanos contra seis enfermedades principales: 
+                      moquillo canino, adenovirus tipo 2 (que incluye hepatitis y enfermedad respiratoria), parainfluenza, parvovirus y leptospirosis. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 80.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Quantum da2ppvl" data-price="80000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/Vitamina-dynamide.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/Vitamina-dynamide.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Dynamide</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Este producto es un estimulante geriátrico y suplemento restaurador para caninos y felinos. 
+                      Combina varios ingredientes activos para apoyar el bienestar general. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲  85.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Dynamide" data-price="85000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiinflamatorio -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-app">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiinflamatorio/Antiinflamatorio-prednisol.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiinflamatorio/Antiinflamatorio-prednisol.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Prednisol</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Contiene prednisolona, es un potente medicamento clasificado como glucocorticoide. Se utiliza principalmente
+                       como antiinflamatorio, antialérgico e inmunosupresor en perros y gatos. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 28.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Prednisol" data-price="28000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiparasitario -->
+              <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-product">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiparasitario/antiparasitario-ivomec inyectable.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiparasitario/antiparasitario-ivomec inyectable.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Ivomec inyectable</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Elimina y controla una gran variedad de parásitos internos (gusanos redondos gastrointestinales y pulmonares) y externos 
+                      (garrapatas, ácaros, piojos chupadores) en animales de producción como bovinos, ovinos y porcinos </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 17.800 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Ivomec inyectable" data-price="17800"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vacuna -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-branding">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vacuna/Vacuna-Rinotraque.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vacuna/Vacuna-Rinotraque.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Rinotraque</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> La vacuna contra la rinotraqueítis es una vacuna esencial, generalmente combinada (trivalente), 
+                      que protege a los gatos contra el virus de la rinotraqueítis viral felina, altamente contagioso y potencialmente mortal.  </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 80.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Rinotraque" data-price="80000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/vitamina-nutripet.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/vitamina-nutripet.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">nutripet</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> sirve especialmente como un soporte nutricional concentrado para mascotas con deficiencias de vitaminas y energía </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 63.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="nutripet" data-price="63000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiinflamatorio -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-app">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiinflamatorio/Antiinflamatorio-tetravit.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiinflamatorio/Antiinflamatorio-tetravit.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">Tetravit</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Tetravit es medicamentos y suplementos que incluye diferentes formulaciones, principalmente centradas en vitaminas del complejo B 
+                      para tratar afecciones nerviosas y dolores asociados, o como multivitamínicos generales </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 55.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="Tetravit" data-price="55000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiparasitario -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-product">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiparasitario/antiparasitario-NexGard combo.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiparasitario/antiparasitario-NexGard combo.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">NexGard combo</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> NexGard COMBO está indicado para gatos y gatitos de 8 semanas de edad o más, 
+                      que pesen al menos 0,8 kg (1.8 lb). Una sola aplicación mensual ayuda a controlar pulgas, garrapatas, ácaros, entre otros parasitos. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 117.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="NexGard combo" data-price="117000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/vitamina-omegapel.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/vitamina-omegapel.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">omegapel</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Es un suplemento nutricional oral para perros y gatos, formulado con ácidos grasos esenciales
+                       vitaminas, biotina y zinc para mantener una piel saludable y un pelaje brillante </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 78.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="omegapel" data-price="78000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiinflamatorio -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-app">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiinflamatorio/Antiinflmatorio-apoquel.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiinflamatorio/Antiinflmatorio-apoquel.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">apoquel</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Un medicamento veterinario recetado para perros utilizado para controlar el prurito (picazón)
+                       y la inflamación asociados con la dermatitis alérgica y la dermatitis atópica </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 155.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="apoquel" data-price="155000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiparasitario -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-product">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiparasitario/antiparasitario-nexgard spectra.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiparasitario/antiparasitario-nexgard spectra.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">nexgard spectra</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> NexGard Spectra es un masticable mensual integral para perros que ofrece protección contra pulgas,
+                       garrapatas, ácaros y parásitos internos, incluyendo el gusano del corazón y gusanos gastrointestinales. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 75.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="nexgard spectra" data-price="75000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/vitamina-proteliv.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/vitamina-proteliv.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">proteliv</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Proteliv es un suplemento veterinario para perros y gatos que protege el hígado,
+                       previniendo y tratando enfermedades hepáticas. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 105.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="proteliv" data-price="105000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion antiparasitario -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-app">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Antiparasitario/antiparasitario-scalibor.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Antiparasitario/antiparasitario-scalibor.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">scalibor</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Scalibor: collar para perros con deltametrina, protege contra parásitos (flebótomos, garrapatas)
+                       mediante liberación lenta en la piel </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 95.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="scalibor" data-price="95000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/Vitamina-pupplyline.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/Vitamina-pupplyline.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">pupplyline</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Puppyline es actuar como un complemento dietario energético, vitamínico y mineral para cachorros y perros convalecientes </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 80.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="pupplyline" data-price="80000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+            <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/vitamina-tonanvit.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/vitamina-tonanvit.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">tonanvit</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> Tonanvit es un tónico multivitamínico y antianémico en jarabe para perros, gatos y equinos. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 63.000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="tonanvit" data-price="63000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- sesion vitamina -->
+             <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item isotope-item filter-books">
+              <div class="portfolio-content h-100 p-3"
+                style="border: 1px solid #eee; border-radius: 10px; background:#fff; position:relative;">
+                <a href="img_Iru/Vitamina/vitamina-vitasol gold forte.jpg" data-gallery="portfolio-gallery-app"
+                  class="glightbox"> <img src="img_Iru/Vitamina/vitamina-vitasol gold forte.jpg"
+                    class="img-fluid mb-3 d-block mx-auto" style="max-height: 400px; object-fit: contain;" alt="" loading="lazy"> </a>
+                <div class="portfolio-info text-center">
+                  <h4 class="mb-2" style="font-size: 1.1rem;"> <a href="#" style="color:#000;">vitasol gold forte</a> </h4>
+                  <div class="producto-detalle">
+                    <p class="small mb-3" style="font-size: 0.9rem;"> es un suplemento vitamínico diseñado principalmente para animales (mascotas, bovinos, porcinos, etc.)
+                       para estimular el apetito, el crecimiento y mejorar la salud general. </p>
+                    <h5 class="fw-bold mb-3" style="color:#000; font-size:1.1rem;"> ₲ 34,000 </h5>
+                  </div>
+                  <button class="btn w-100 text-white py-2 product-btn"
+                    data-product="vitasol gold forte" data-price="34000"
+                    style="background: linear-gradient(90deg,#27de27,#475847); border-radius:8px; font-size: 1rem;">
+                    Añadir </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+    <!--Pie de la pagina-->
+    <footer id="footer" class="footer accent-background">
+        <div class="container copyright text-center mt-4 d-flex justify-content-between align-items-center">
+            <div>
+                <p>© <span>Todos</span> <strong class="px-1 sitename">los</strong> <span>derechos son reservados</span>
+                </p>
+                <div class="credits">
+                    Disfrute <a href="https://bootstrapmade.com/">de nuestra</a> pagina <a
+                        href="https://themewagon.com">navegando</a>
+                </div>
+            </div>
+            <div class="social-links d-flex">
+                <!--a href="#"><i class="bi bi-twitter"></i></a-->
+                <a href="https://www.facebook.com/veterinarialuque/"><i class="bi bi-facebook"></i></a>
+                <a href="https://www.instagram.com/agroveterinaria_naneiru?igsh=eHpzMmJvcm96MHRw"><i class="bi bi-instagram"></i></a>
+                <!--a href="#"><i class="bi bi-linkedin"></i></a-->
+            </div>
+        </div>
+
+    </footer>
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
+
+  <!-- Modal Carrito FULL (AGREGADO) -->
+  <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Mi Carrito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+          </table>
+
+          <h4 class="text-end">Total: Gs. <span id="cart-total">0</span></h4>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-danger" id="vaciar-carrito">Vaciar carrito</button>
+          <button class="btn btn-success" id="finalizar-compra">Finalizar compra</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- JS de la pagina de animaciones -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/validate.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/glightbox.min.js"></script>
+  <script src="js/swiper-bundle.min.js"></script>
+  <script src="js/purecounter_vanilla.js"></script>
+  <script src="js/imagesloaded.pkgd.min.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/691cf18a458429195a037667/1jacgv16j';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const cards = document.querySelectorAll(".portfolio-content");
+
+      // Abrir/cerrar con touch
+      cards.forEach(card => {
+        card.addEventListener("click", function (e) {
+          // Si ya está abierto → cerrar
+          if (card.classList.contains("activo")) {
+            card.classList.remove("activo");
+            return;
+          }
+
+          // Cerrar todos
+          cards.forEach(c => c.classList.remove("activo"));
+
+          // Abrir este
+          card.classList.add("activo");
+          e.stopPropagation();
+        });
+      });
+
+      // Cerrar cuando se toca fuera
+      document.addEventListener("click", function () {
+        cards.forEach(c => c.classList.remove("activo"));
+      });
+
+      // Cerrar al hacer scroll en móvil
+      let lastScroll = 0;
+      window.addEventListener("scroll", function () {
+        const currentScroll = window.scrollY;
+
+        if (Math.abs(currentScroll - lastScroll) > 10) {
+          cards.forEach(c => c.classList.remove("activo"));
+        }
+
+        lastScroll = currentScroll;
+      });
+    });
+  </script>
+
+  <!-- Carrito (AGREGADO) -->
+  <script src="js/carrito.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+# ===============================================
+# 1. Reglas para HTML (Caché Corta)
+# Asegura que el archivo principal siempre se revalide
+# ===============================================
+[[headers]]
+  for = "/*"  # Aplica a TODAS las rutas para cubrir el HTML principal
+  [headers.values]
+    Cache-Control = "max-age=0, must-revalidate"
+
+# ===============================================
+# 2. Reglas para Estáticos (Caché Larga)
+# Sobreescribe la regla anterior SOLO para los tipos de archivo especificados
+# ===============================================
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "max-age=31536000, public, immutable"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "max-age=31536000, public, immutable"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "max-age=31536000, public, immutable"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "max-age=31536000, public, immutable"
+
+[[headers]]
+  for = "*.gif"
+  [headers.values]
+    Cache-Control = "max-age=31536000, public, immutable"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "max-age=31536000, public, immutable"
+    [build]
+  publish = "tu-directorio-de-publicacion" # Ejemplo: "." o "public"
+
+[build.processing]
+  skip_processing = false # Asegura que el procesamiento esté activado
+    [build.processing.html]
+      prettyUrls = true
+    [build.processing.css]
+      bundle = true
+      minify = true # Activa la minificación de CSS
+    [build.processing.js]
+      bundle = true
+      minify = true # Activa la minificación de JS
